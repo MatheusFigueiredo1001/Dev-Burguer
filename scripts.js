@@ -51,7 +51,7 @@ function sumAll() {
 
 function filterVegan() {
     const itemVegan = menuOptions.filter((item) => item.vegan)//Por padrão o valor já vem como true
-    showAll(filterVegan)
+    showAll(menuOptions)
     showAll(itemVegan)
 }
 
