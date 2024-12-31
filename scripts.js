@@ -1,77 +1,62 @@
-const convertButton = document.querySelector('.convert-button') //Buscando a classe do botão
-const selectCurrency = document.querySelector('.select-currency') //Seleciona qual moeda vai ser convertida
+const list = document.querySelector('ul')
+const buttonShowAll = document.querySelector('.show-all')
+const buttonMapAll = document.querySelector('.map-all')
+const buttonSumAll = document.querySelector('.sum-all')
+const buttonFilterVegan = document.querySelector('.filter-vegan')
 
-function convertValues() {
-    const inputValue = document.querySelector('.input-value').value // Pega o valor do input
-    const currencyValueToConvert = document.querySelector('.currency-value-to-convert') //Valor em real
-    const currencyValue = document.querySelector('.currency-value') //Outras moedas
-
-    const dolarToday = 6.07
-    const euroToday = 6.35
-    const libraToday = 7.68
-    const ieneToday = 0.040
-
-    if (selectCurrency.value == 'dolar') {
-        currencyValue.innerHTML = new Intl.NumberFormat('en-US', {
+function formatCurrent(value) { //Formatar para moeda
+    return value.toLocaleString('pt-br',
+        {
             style: 'currency',
-            currency: 'USD'
-        }).format(inputValue / dolarToday) //Select em dolar
-    }
-
-    if (selectCurrency.value == 'euro') {
-        currencyValue.innerHTML = new Intl.NumberFormat('de-DE', {
-            style: 'currency',
-            currency: 'EUR'
-        }).format(inputValue / euroToday) //Select em euro
-    }
-
-    if (selectCurrency.value == 'libra') {
-        currencyValue.innerHTML = new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'GBP'
-        }).format(inputValue / libraToday) //Select em libra
-    }
-
-    if (selectCurrency.value == 'iene') {
-        currencyValue.innerHTML = new Intl.NumberFormat('ja-JP', {
-            style: 'currency',
-            currency: 'JPY'
-        }).format(inputValue / ieneToday) //Select em iene
-    }
-
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-    }).format(inputValue) //Coloca o valor digitado no input na parte web, ficando visualmente mais bonito
-
-    console.log(convertedValue)
+            currency: 'BRL'
+        });
 }
 
-function changeCurrency() {
-    const currencyChange = document.querySelector('.currency-change')
-    const currencyImg = document.querySelector('.currency-img')
+function showAll(productsArray) {
+    let myLi = '' //Resetar a contagem antes de alterar algum dado
 
-    if (selectCurrency.value == 'dolar') {
-        currencyChange.innerHTML = 'Dólar americano'
-        currencyImg.src = './assets/dolar.png'
-    }
+    productsArray.forEach(products => {
+        myLi +=
+            `
+        <li>
+                <img src=${products.src}>
+                <p> ${products.name} </p>
+                <p class="item-price"> ${formatCurrent(products.price)} </p>
+            </li>
+        `
 
-    if (selectCurrency.value == 'euro') {
-        currencyChange.innerHTML = 'Euro'
-        currencyImg.src = './assets/euro.png'
-    }
-
-    if (selectCurrency.value == 'libra') {
-        currencyChange.innerHTML = 'Libra esterlina'
-        currencyImg.src = './assets/libra.png'
-    }
-
-    if (selectCurrency.value == 'iene') {
-        currencyChange.innerHTML = 'Iene'
-        currencyImg.src = './assets/iene.png'
-    }
+        list.innerHTML = myLi
+    });
 
 }
 
-convertButton.addEventListener('click', convertValues) // Faz o botão funcionar
-selectCurrency.addEventListener('change', changeCurrency) // Muda a moeda selecionada para converter
+function mapAll() {
+    const newPrice = menuOptions.map(discount => ({
+        ...discount,
+        price: discount.price * 0.9,
+    }))
+
+    showAll(newPrice)
+}
+
+function sumAll() {
+    const totalPrice = menuOptions.reduce((acc, current) => acc + current.price, 0)
+    list.innerHTML =
+        `
+        <li>
+            <p> O valor total da compra é de ${formatCurrent(totalPrice)} </p>
+        </li>
+        `
+}
+
+function filterVegan() {
+    const itemVegan = menuOptions.filter((item) => item.vegan)//Por padrão o valor já vem como true
+    showAll(filterVegan)
+    showAll(itemVegan)
+}
+
+buttonShowAll.addEventListener('click', () => showAll(menuOptions)) //menuOptions é chamado nesta função para poder retornar dados ao clicar no botão, necessário uma arrow function pois caso deixe apenas com parenteses, o site mostra as informações direto na tela, sem precisar clicar no botão
+buttonMapAll.addEventListener('click', mapAll)
+buttonSumAll.addEventListener('click', sumAll)
+buttonFilterVegan.addEventListener('click', filterVegan)
+
