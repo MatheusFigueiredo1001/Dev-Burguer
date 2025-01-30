@@ -16,7 +16,7 @@ Como Rodar o Projeto
 
 Clone o Repositório:
 
-git clone https://github.com/seuusuario/hamburgueria.git
+git clone https://github.com/MatheusFigueiredo1001/JavaScript-Projeto-Hamburgueria.git
 
 Acesse a Pasta do Projeto:
 
