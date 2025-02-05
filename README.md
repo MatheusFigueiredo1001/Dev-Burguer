@@ -12,19 +12,7 @@ HTML para estruturação da página;
 CSS para estilização e design básico;
 JavaScript para implementação da lógica de interação com os botões e manipulação dos dados dos produtos;
 
-Como Rodar o Projeto
-
-Clone o Repositório:
-
-git clone https://github.com/MatheusFigueiredo1001/JavaScript-Projeto-Hamburgueria.git
-
-Acesse a Pasta do Projeto:
-
-cd hamburgueria
-
-Abra o Arquivo HTML no Navegador:
-
-Não é necessário instalar dependências, pois é um projeto estático.
+O projeto estará disponível em https://matheusfigueiredo1001.github.io/Dev-Burguer/
 
 Planejamentos Futuros:
 Tornar o design mais interativo e responsivo;
